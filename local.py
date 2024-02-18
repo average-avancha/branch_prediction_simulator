@@ -25,7 +25,6 @@ class LocalPredictor(AbstractPredictor):
 
     def Update(self, target_address : int, predicted_result : BranchResult, actual_result : BranchResult):
         bht_idx = (target_address & self.bht_idx_mask ) >> self.bht_idx_shift
-        # bht_idx = (self.GetRegVal(Reg.PC) & self.bht_idx_mask ) >> 2
         bht_val = self.bht.GetTableVal(bht_idx)
 
         pht_idx = bht_val & self.pht_idx_mask
@@ -57,4 +56,5 @@ class LocalPredictor(AbstractPredictor):
 
         if pht_val > 0b0111:
             return BranchResult.TAKEN
-        return BranchResult.NOT_TAKEN
+        else: 
+            return BranchResult.NOT_TAKEN
